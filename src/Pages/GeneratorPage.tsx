@@ -16,7 +16,7 @@ import { LuRefreshCw } from "react-icons/lu";
 import { LuClipboardCopy } from "react-icons/lu";
 import { v4 as uuidv4 } from "uuid";
 
-const RESET_TOAST_DELAY_MS = 2000;
+const RESET_TOAST_DELAY_MS = 1000;
 
 const GeneratorPage = () => {
   document.title = `Generator | ${TITLE}`;
