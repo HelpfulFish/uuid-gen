@@ -56,8 +56,8 @@ const GeneratorPage = () => {
   }, [generateNewUuid]);
 
   return (
-    <Flex gap="12" flexDirection={"column"} justifyItems={"center"} alignItems={"center"} my={4} p={4}>
-      <Flex flexDirection={"row"} width={"full"} gap="4" justifyContent={"center"}>
+    <Flex gap="12" flexDirection={"column"} justifyItems={"center"} alignItems={"center"} pb={12} px={2}>
+      <Flex flexDirection={"row"} width={"full"} gap="2" justifyContent={"center"}>
         <Box maxWidth={"24"}>
           <NumberInput defaultValue={1} min={1} onChange={(value) => setUuidToGenerate(Number(value))}>
             <NumberInputField />

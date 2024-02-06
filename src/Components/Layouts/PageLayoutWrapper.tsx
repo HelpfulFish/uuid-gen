@@ -1,5 +1,8 @@
 import React from "react";
 import { Box, useColorMode } from "@chakra-ui/react";
+import useScreenSize from "@/Hooks/useScreenSize";
+
+const MIN_SIZE_PX = "412px";
 
 interface PageLayoutWrapperProps {
   children: React.ReactNode;
@@ -7,10 +10,11 @@ interface PageLayoutWrapperProps {
 
 const PageLayoutWrapper: React.FC<PageLayoutWrapperProps> = ({ children }) => {
   const { colorMode } = useColorMode();
+  const { isMobile } = useScreenSize();
   const bgColor = colorMode === "light" ? "white" : "gray.900";
 
   return (
-    <Box bg={bgColor} p={4}>
+    <Box m={0} p={0} bg={bgColor} minWidth={isMobile ? MIN_SIZE_PX : "full"}>
       {children}
     </Box>
   );
