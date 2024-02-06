@@ -16,7 +16,7 @@
         "prepare": "npm i husky",
         "test": "jest",
         "test:watch": "jest --watch",
-        "firefox:manifest": "cp -r ./firefox/*.json ./firefox/icons/*.png dist"
+        "firefox:manifest": "cp -r ./firefox/*.json ./firefox/icons dist"
     },
     "repository": {
         "type": "git",
@@ -39,6 +39,7 @@
         "@types/node": "^18.11.7",
         "@types/react": "^17.0.2",
         "@types/react-dom": "^18.0.2",
+        "@types/uuid": "^9.0.8",
         "@typescript-eslint/eslint-plugin": "^5.56.0",
         "@typescript-eslint/parser": "^5.56.0",
         "autoprefixer": "^10.1.0",
@@ -61,7 +62,6 @@
         "postcss": "^8.2.1",
         "postcss-loader": "^4.1.0",
         "prettier": "^2.8.7",
-        "react-router-dom": "^6.4.4",
         "standard-version": "^9.5.0",
         "style-loader": "^3.3.0",
         "tailwindcss": "^2.0.2",

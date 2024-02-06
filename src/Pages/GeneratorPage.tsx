@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Flex,
-  Heading,
   IconButton,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -58,7 +57,6 @@ const GeneratorPage = () => {
 
   return (
     <Flex gap="12" flexDirection={"column"} justifyItems={"center"} alignItems={"center"} my={4} p={4}>
-      <Heading>Generate UUID</Heading>
       <Flex flexDirection={"row"} width={"full"} gap="4" justifyContent={"center"}>
         <Box maxWidth={"24"}>
           <NumberInput defaultValue={1} min={1} onChange={(value) => setUuidToGenerate(Number(value))}>

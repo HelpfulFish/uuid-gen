@@ -12,7 +12,7 @@ const GlobalLayoutWrapper: React.FC<GlobalLayoutWrapperProps> = ({ children }) =
   const bgColor = colorMode === "light" ? "gray.100" : "gray.800";
 
   return (
-    <Box bg={bgColor} minWidth={isMobile ? "container.sm" : "full"} backgroundColor={"blue.700"}>
+    <Box bg={bgColor} minWidth={isMobile ? "container.sm" : "full"}>
       {children}
     </Box>
   );

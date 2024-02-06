@@ -1,7 +1,6 @@
 import React from "react";
-import { SiAboutdotme } from "react-icons/si";
 const ToggleTheme = React.lazy(() => import("@/Components/ToggleTheme"));
-const ToggleGenerator = React.lazy(() => import("@/Components/ToggleGenerator"));
+const GitHub = React.lazy(() => import("@/Components/GitHub"));
 
 export const enum GlobalRouteKey {
   GENERATOR = "GENERATOR",
@@ -23,14 +22,14 @@ export type IRoute = {
   component: React.LazyExoticComponent<() => JSX.Element> | null;
 };
 
-export const GlobalNavigation: Record<GlobalRouteKey, IRoute> = {
-  [GlobalRouteKey.GENERATOR]: {
-    name: "Generator",
-    path: GlobalPath.GENERATOR,
-    key: GlobalRouteKey.GENERATOR,
-    icon: SiAboutdotme,
-    component: ToggleGenerator,
-  },
-};
+// export const GlobalNavigation: Record<GlobalRouteKey, IRoute> = {
+//   [GlobalRouteKey.GENERATOR]: {
+//     name: "Generator",
+//     path: GlobalPath.GENERATOR,
+//     key: GlobalRouteKey.GENERATOR,
+//     icon: SiAboutdotme,
+//     component: ToggleGenerator,
+//   },
+// };
 
-export const ActionItems = [{ component: ToggleTheme }];
+export const ActionItems = [{ component: ToggleTheme }, { component: GitHub }];

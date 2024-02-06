@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 import { IconButton } from "@chakra-ui/react";
 import { BsGithub } from "react-icons/bs";
+import packageJson from "../../package.json";
 
-const ToggleGitHub = () => {
+const GitHub = () => {
   const gitHubNavigation = useCallback(() => {
-    const url = "https://github.com/HelpfulFish/uuid-gen";
-    window.open(url, "_blank");
+    window.open(packageJson.repository.url, "_blank");
   }, []);
 
   return (
@@ -20,4 +20,4 @@ const ToggleGitHub = () => {
   );
 };
 
-export default ToggleGitHub;
+export default GitHub;
