@@ -9,7 +9,7 @@ interface GlobalLayoutWrapperProps {
 const GlobalLayoutWrapper: React.FC<GlobalLayoutWrapperProps> = ({ children }) => {
   const { colorMode } = useColorMode();
   const { isMobile } = useScreenSize();
-  const bgColor = colorMode === "light" ? "gray.100" : "gray.800";
+  const bgColor = colorMode === "light" ? "white" : "gray.900";
 
   return (
     <Box bg={bgColor} minWidth={isMobile ? "container.sm" : "full"}>

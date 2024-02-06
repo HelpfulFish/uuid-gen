@@ -7,7 +7,7 @@ interface PageLayoutWrapperProps {
 
 const PageLayoutWrapper: React.FC<PageLayoutWrapperProps> = ({ children }) => {
   const { colorMode } = useColorMode();
-  const bgColor = colorMode === "light" ? "gray.100" : "gray.900";
+  const bgColor = colorMode === "light" ? "white" : "gray.900";
 
   return (
     <Box bg={bgColor} p={4}>
