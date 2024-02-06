@@ -2,8 +2,8 @@
     "name": "uuid-gen",
     "version": "0.0.1",
     "scripts": {
-        "build": "npm run lint && webpack --mode production",
-        "build:dev": "webpack --mode development",
+        "build": "npm run lint && webpack --mode production && npm run firefox:manifest",
+        "build:dev": "webpack --mode development && npm run firefox:manifest",
         "build:start": "cd dist && PORT=3002 npx serve",
         "start": "webpack serve --open --mode development",
         "start:live": "webpack serve --open --mode development --live-reload --hot",
@@ -15,7 +15,8 @@
         "prettier:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
         "prepare": "npm i husky",
         "test": "jest",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "firefox:manifest": "cp -r ./firefox/*.json ./firefox/icons/*.png dist"
     },
     "repository": {
         "type": "git",
