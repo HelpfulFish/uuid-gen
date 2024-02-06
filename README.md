@@ -1,15 +1,28 @@
 # UUID-Gen
 
-A simple UUID generator firefox extension.
+A simple and fast UUID generator
+
+- Dark and light theme
+- Refresh new UUIDs
+- Generate multiple UUIDs based on number input
+- Copy to clipboard, with UUIDs separated by a comma delimiter
+- Link to GitHub source code
+
+![uuid-gen-screenshot-darkmode](https://github.com/HelpfulFish/uuid-gen/assets/121419439/ac6a60d2-d060-4595-a5f3-9893e119c81a)
+![uuid-gen-screenshot-lightmode](https://github.com/HelpfulFish/uuid-gen/assets/121419439/b9371d5d-fe20-46e1-8de5-c0b90821c9a0)
+
 
 TODO
 - [ ] Chromium support
 
-Start dev environment
+## Start dev environment
 
+Install dependencies 
 ```
 npm install
 ```
+
+Run locally
 
 ```
 npm run start
