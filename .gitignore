@@ -6,7 +6,6 @@ logs/
 *.log
 __pycache__
 .env
-*.json
 *.mp4
 *.mov
 *.mp3
