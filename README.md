@@ -14,12 +14,20 @@ A simple and fast UUID generator
 ![settings-dark](https://github.com/HelpfulFish/uuid-gen/assets/121419439/af99c314-3fb3-4fd8-8325-81d07308c1b6)
 ![settings-light](https://github.com/HelpfulFish/uuid-gen/assets/121419439/de5a35ad-a6a7-4a3d-9be3-52ed8699a5e7)
 
+## Installation
+
+**Mozilla Firefox**
+([stable](https://addons.mozilla.org/en-US/firefox/addon/uuid-gen/)) \
+[![](images/firefox-addons.png)](https://addons.mozilla.org/en-US/firefox/addon/uuid-gen/)
+
 TODO
+
 - [ ] Chromium support
 
 ## Start dev environment
 
-Install dependencies 
+Install dependencies
+
 ```
 npm install
 ```
