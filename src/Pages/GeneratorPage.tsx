@@ -11,10 +11,12 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import { TITLE } from "@/Data/Contants";
+import { LOCAL_STORAGE_WITH_QUOTES, TITLE } from "@/Data/Contants";
 import { LuRefreshCw } from "react-icons/lu";
 import { LuClipboardCopy } from "react-icons/lu";
 import { v4 as uuidv4 } from "uuid";
+import SettingsDrawer from "@/Components/SettingsDrawer";
+import useLocalStorage from "@/Hooks/useLocalStorage";
 
 const RESET_TOAST_DELAY_MS = 1000;
 
@@ -23,6 +25,9 @@ const GeneratorPage = () => {
 
   const [uuid, setUuid] = useState<string[]>([uuidv4()]);
   const [uuidToGenerate, setUuidToGenerate] = useState<number>(1);
+
+  const [withQuotesStorage] = useLocalStorage<boolean | null>(LOCAL_STORAGE_WITH_QUOTES, true);
+  const [withQuotes, setWithQuotes] = useState<boolean | null>(withQuotesStorage);
 
   const toast = useToast();
 
@@ -36,8 +41,8 @@ const GeneratorPage = () => {
   }, [uuidToGenerate]);
 
   const copyId = () => {
-    const uuidToText = uuid.join(", ");
-    window.navigator.clipboard.writeText(uuidToText);
+    const quotesOrRawText = withQuotesOrRaw();
+    window.navigator.clipboard.writeText(quotesOrRawText);
     toast({
       title: "Copied",
       status: "success",
@@ -47,9 +52,20 @@ const GeneratorPage = () => {
     });
   };
 
-  const formatIds = () => {
-    return uuid.join(",\n");
+  const formatIdsForTextArea = () => {
+    const quotesOrRawText = withQuotesOrRaw();
+    return quotesOrRawText.split(",").join(", \n");
   };
+
+  const withQuotesOrRaw = useCallback(() => {
+    const text = uuid
+      .map((u) => {
+        return withQuotes ? `"${u}"` : u;
+      })
+      .join(", ");
+
+    return text;
+  }, [uuid, withQuotes]);
 
   useEffect(() => {
     generateNewUuid();
@@ -74,9 +90,10 @@ const GeneratorPage = () => {
           title={"Generate new uuid"}
           onClick={generateNewUuid}
         />
-        <IconButton icon={<LuClipboardCopy />} aria-label="Copy uuid" variant="solid" title="Copy new uuid" onClick={copyId} />
+        <IconButton icon={<LuClipboardCopy />} aria-label="Copy uuid" variant="solid" title="Copy uuid" onClick={copyId} />
+        <SettingsDrawer setWithQuotes={setWithQuotes} />
       </Flex>
-      <Textarea value={formatIds()} maxWidth={"lg"} />
+      <Textarea value={formatIdsForTextArea()} maxWidth={"lg"} />
     </Flex>
   );
 };
