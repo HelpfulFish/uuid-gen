@@ -5,7 +5,7 @@ import theme from "@/Config/theme";
 
 import Navigation from "@/Components/Navigation";
 import PageLayoutWrapper from "@/Components/Layouts/PageLayoutWrapper";
-import GlobalLayoutWrapper from "./Components/Layouts/GlobalLayoutWrapper";
+import GlobalLayoutWrapper from "@/Components/Layouts/GlobalLayoutWrapper";
 
 const GeneratorPage = React.lazy(() => import("@/Pages/GeneratorPage"));
 
