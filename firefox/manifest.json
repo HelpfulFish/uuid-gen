@@ -18,5 +18,8 @@
         "32": "/icons/icon32.png",
         "192": "/icons/icon192.png",
         "512": "/icons/icon512.png"
-    }
+    },
+    "permissions": [
+        "clipboardWrite"
+    ]
 }
