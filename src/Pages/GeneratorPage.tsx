@@ -11,12 +11,13 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import { LOCAL_STORAGE_WITH_QUOTES, TITLE } from "@/Data/Contants";
+import { LOCAL_STORAGE_WITH_BLOCK_COPY, LOCAL_STORAGE_WITH_QUOTES, TITLE } from "@/Data/Contants";
 import { LuRefreshCw } from "react-icons/lu";
 import { LuClipboardCopy } from "react-icons/lu";
 import { v4 as uuidv4 } from "uuid";
 import SettingsDrawer from "@/Components/SettingsDrawer";
 import useLocalStorage from "@/Hooks/useLocalStorage";
+import { handleWithQuotes, handleWithBlockCopy, handleArrayToString } from "@/Utils";
 
 const RESET_TOAST_DELAY_MS = 1000;
 
@@ -27,7 +28,10 @@ const GeneratorPage = () => {
   const [uuidToGenerate, setUuidToGenerate] = useState<number>(1);
 
   const [withQuotesStorage] = useLocalStorage<boolean | null>(LOCAL_STORAGE_WITH_QUOTES, true);
-  const [withQuotes, setWithQuotes] = useState<boolean | null>(withQuotesStorage);
+  const [WithBlockCopyStorage] = useLocalStorage<boolean | null>(LOCAL_STORAGE_WITH_BLOCK_COPY, true);
+
+  const [withQuotes, setWithQuotes] = useState<boolean>(withQuotesStorage ?? true);
+  const [withBlockCopy, setWithBlockCopy] = useState<boolean>(WithBlockCopyStorage ?? true);
 
   const toast = useToast();
 
@@ -41,31 +45,48 @@ const GeneratorPage = () => {
   }, [uuidToGenerate]);
 
   const copyId = () => {
-    const quotesOrRawText = withQuotesOrRaw();
-    window.navigator.clipboard.writeText(quotesOrRawText);
-    toast({
-      title: "Copied",
-      status: "success",
-      duration: RESET_TOAST_DELAY_MS,
-      position: "bottom-left",
-      variant: "subtle",
-    });
+    try {
+      // process
+      const withQuotesOrNot = handleWithQuotes(withQuotes, uuid);
+      const withBlockCopyOrSingleLine = handleWithBlockCopy(withBlockCopy, withQuotesOrNot);
+      const idsToCopy = handleArrayToString(withBlockCopyOrSingleLine);
+
+      // write to clipboard
+      window.navigator.clipboard
+        .writeText(idsToCopy)
+        .then(() => {
+          toast({
+            title: "Copied",
+            status: "success",
+            duration: RESET_TOAST_DELAY_MS,
+            position: "bottom-left",
+            variant: "subtle",
+          });
+        })
+        .catch(() => {
+          toast({
+            title: "Copy failed",
+            status: "error",
+            duration: RESET_TOAST_DELAY_MS,
+            position: "bottom-left",
+            variant: "subtle",
+          });
+        });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An error occurred during the copy operation.",
+        status: "error",
+        duration: RESET_TOAST_DELAY_MS,
+        position: "bottom-left",
+        variant: "subtle",
+      });
+    }
   };
 
   const formatIdsForTextArea = () => {
-    const quotesOrRawText = withQuotesOrRaw();
-    return quotesOrRawText.split(",").join(", \n");
+    return handleWithQuotes(withQuotes, uuid).join(", \n");
   };
-
-  const withQuotesOrRaw = useCallback(() => {
-    const text = uuid
-      .map((u) => {
-        return withQuotes ? `"${u}"` : u;
-      })
-      .join(", ");
-
-    return text;
-  }, [uuid, withQuotes]);
 
   useEffect(() => {
     generateNewUuid();
@@ -91,7 +112,7 @@ const GeneratorPage = () => {
           onClick={generateNewUuid}
         />
         <IconButton icon={<LuClipboardCopy />} aria-label="Copy uuid" variant="solid" title="Copy uuid" onClick={copyId} />
-        <SettingsDrawer setWithQuotes={setWithQuotes} />
+        <SettingsDrawer setWithQuotes={setWithQuotes} setWithBlockCopy={setWithBlockCopy} />
       </Flex>
       <Textarea value={formatIdsForTextArea()} maxWidth={"lg"} />
     </Flex>
