@@ -1,5 +1,5 @@
-import { LOCAL_STORAGE_WITH_BLOCK_COPY, LOCAL_STORAGE_WITH_QUOTES, TITLE } from "@/Data/Contants";
-import useLocalStorage from "@/Hooks/useLocalStorage";
+import { LOCAL_STORAGE_WITH_BLOCK_COPY, LOCAL_STORAGE_WITH_QUOTES, TITLE } from "@/data/contants";
+import useLocalStorage from "@/hooks/useLocalStorage";
 import { MdOutlineSettings } from "react-icons/md";
 import {
   Drawer,

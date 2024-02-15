@@ -3,20 +3,19 @@ const path = require("path");
 const HWP = require('html-webpack-plugin'); 
 
 module.exports = {
-
   output: {
     publicPath: "/",
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js', // Use dynamic filename based on entry key
   },
 
-  entry: path.join(__dirname, '/src/index.ts'),
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
+  entry: {
+    main: path.join(__dirname, '/src/index.ts'),
+    background: path.join(__dirname, "/src/background.ts"),
   },
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
-
     alias: {
       "@": path.resolve(__dirname, "/src"),
     },
@@ -52,6 +51,6 @@ module.exports = {
 
   plugins: [
     new Dotenv({ systemvars: true }), 
-    new HWP({template: path.join(__dirname,'/src/index.html')})
+    new HWP({template: path.join(__dirname,'/src/index.html'), chunks: ['main']}),
   ],
 };

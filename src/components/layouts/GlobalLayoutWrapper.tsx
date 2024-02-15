@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, useColorMode } from "@chakra-ui/react";
-import useScreenSize from "@/Hooks/useScreenSize";
+import useScreenSize from "@/hooks/useScreenSize";
 
 interface GlobalLayoutWrapperProps {
   children: React.ReactNode;

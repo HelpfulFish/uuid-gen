@@ -1,6 +1,6 @@
 import React from "react";
-const ToggleTheme = React.lazy(() => import("@/Components/ToggleTheme"));
-const GitHub = React.lazy(() => import("@/Components/GitHub"));
+const ToggleTheme = React.lazy(() => import("@/components/toggleTheme"));
+const GitHub = React.lazy(() => import("@/components/github"));
 
 export const enum GlobalRouteKey {
   GENERATOR = "GENERATOR",

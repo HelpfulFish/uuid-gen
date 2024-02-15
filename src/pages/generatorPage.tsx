@@ -11,13 +11,13 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import { LOCAL_STORAGE_WITH_BLOCK_COPY, LOCAL_STORAGE_WITH_QUOTES, TITLE } from "@/Data/Contants";
+import { LOCAL_STORAGE_WITH_BLOCK_COPY, LOCAL_STORAGE_WITH_QUOTES, TITLE } from "@/data/contants";
 import { LuRefreshCw } from "react-icons/lu";
 import { LuClipboardCopy } from "react-icons/lu";
 import { v4 as uuidv4 } from "uuid";
-import SettingsDrawer from "@/Components/SettingsDrawer";
-import useLocalStorage from "@/Hooks/useLocalStorage";
-import { handleWithQuotes, handleWithBlockCopy, handleArrayToString } from "@/Utils";
+import SettingsDrawer from "@/components/settingsDrawer";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { generateIds, copyToClipboard, handleWithQuotes, handleWithBlockCopy, handleArrayToString } from "@/utils";
 
 const RESET_TOAST_DELAY_MS = 1000;
 
@@ -25,7 +25,6 @@ const GeneratorPage = () => {
   document.title = `Generator | ${TITLE}`;
 
   const [uuid, setUuid] = useState<string[]>([uuidv4()]);
-  const [uuidToGenerate, setUuidToGenerate] = useState<number>(1);
 
   const [withQuotesStorage] = useLocalStorage<boolean | null>(LOCAL_STORAGE_WITH_QUOTES, true);
   const [WithBlockCopyStorage] = useLocalStorage<boolean | null>(LOCAL_STORAGE_WITH_BLOCK_COPY, true);
@@ -35,15 +34,6 @@ const GeneratorPage = () => {
 
   const toast = useToast();
 
-  const generateNewUuid = useCallback(() => {
-    const ids: string[] = [];
-    for (let index = 0; index < uuidToGenerate; index++) {
-      const id = uuidv4();
-      ids.push(id);
-    }
-    setUuid(ids);
-  }, [uuidToGenerate]);
-
   const copyId = () => {
     try {
       // process
@@ -52,8 +42,8 @@ const GeneratorPage = () => {
       const idsToCopy = handleArrayToString(withBlockCopyOrSingleLine);
 
       // write to clipboard
-      window.navigator.clipboard
-        .writeText(idsToCopy)
+      const clipboard = copyToClipboard(idsToCopy);
+      clipboard
         .then(() => {
           toast({
             title: "Copied",
@@ -88,15 +78,20 @@ const GeneratorPage = () => {
     return handleWithQuotes(withQuotes, uuid).join(", \n");
   };
 
+  const handleGenerateIds = useCallback((count: number) => {
+    const ids = generateIds(count);
+    setUuid(ids);
+  }, []);
+
   useEffect(() => {
-    generateNewUuid();
-  }, [generateNewUuid]);
+    handleGenerateIds;
+  }, [handleGenerateIds]);
 
   return (
     <Flex gap="12" flexDirection={"column"} justifyItems={"center"} alignItems={"center"} pb={12} px={2}>
       <Flex flexDirection={"row"} width={"full"} gap="2" justifyContent={"center"}>
         <Box maxWidth={"24"}>
-          <NumberInput defaultValue={1} min={1} onChange={(value) => setUuidToGenerate(Number(value))}>
+          <NumberInput defaultValue={1} min={1} onChange={(value) => handleGenerateIds(Number(value))}>
             <NumberInputField />
             <NumberInputStepper>
               <NumberIncrementStepper />
@@ -109,7 +104,7 @@ const GeneratorPage = () => {
           aria-label="Generate new uuid"
           variant="solid"
           title={"Generate new uuid"}
-          onClick={generateNewUuid}
+          onClick={() => handleGenerateIds(1)}
         />
         <IconButton icon={<LuClipboardCopy />} aria-label="Copy uuid" variant="solid" title="Copy uuid" onClick={copyId} />
         <SettingsDrawer setWithQuotes={setWithQuotes} setWithBlockCopy={setWithBlockCopy} />
