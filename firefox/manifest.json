@@ -27,6 +27,7 @@
     },
     "permissions": [
         "clipboardWrite",
-        "contextMenus"
+        "contextMenus",
+        "notifications"
     ]
 }
