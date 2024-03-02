@@ -18,8 +18,8 @@ function handleContextMenuClick() {
 }
 
 chrome.contextMenus.create({
-  id: "copyRandomUuid",
-  title: "Copy Random UUID",
+  id: "generateAndCopyUuid",
+  title: "Generate Random UUID (Copied)",
   contexts: ["all"],
 });
 
