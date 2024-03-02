@@ -1,8 +1,8 @@
 import React from "react";
 import { Flex, Heading } from "@chakra-ui/react";
-import { ActionItems } from "@/Data/RoutesData";
+import { ActionItems } from "@/data/routes";
 import { nanoid } from "nanoid";
-import { TITLE } from "@/Data/Contants";
+import { TITLE } from "@/data/contants";
 
 const Navigation = () => {
   const renderActionItems = () => {

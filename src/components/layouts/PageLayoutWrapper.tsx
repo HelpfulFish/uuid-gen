@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, useColorMode } from "@chakra-ui/react";
-import useScreenSize from "@/Hooks/useScreenSize";
+import useScreenSize from "@/hooks/useScreenSize";
 
 const MIN_SIZE_PX = "412px";
 
